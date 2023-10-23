@@ -1,11 +1,25 @@
 "use client";
+import { UserAuth } from "@/app/context/authContext";
 import  { useState } from "react";
+import { ToastContainer } from 'react-toastify';
+
 function Login() {
 
    
  const [email, setEmail] = useState("");
  const [password, setPassword] = useState("");
-
+ const { login }  = UserAuth();
+ 
+ const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    await login(email,password);
+    
+  } catch (error) {
+    console.log(error);
+  }
+  
+};
   return (
     <>
        <div class="Pt-20 grid place-items-center mx-2 my-20 sm:my-auto  h-screen">
@@ -17,7 +31,7 @@ function Login() {
                 Login
             </h2>
 
-            <form class="mt-10" >
+            <form class="mt-10" onSubmit={handleLogin} >
                 <label for="email" class="block text-xs font-semibold text-gray-600 uppercase">E-mail</label>
                 <input id="email" 
                     value={email} 
@@ -47,11 +61,12 @@ function Login() {
                 </button>
 
                 <div className="grid justify-items-center pt-4 ">
-                  <h4 className="flex flex-inline">Don't have an account <span className="text-purple-900 pl-4"><a href="/Authentication/signup">Sign up</a></span></h4>
+                  <h4 className="flex flex-inline">Don't have an account <span className="text-purple-900 pl-4"><a href="/signup">Sign up</a></span></h4>
                 </div>
                 
             </form>
             </div>
+            <ToastContainer />
             </div>
    
 
