@@ -1,11 +1,37 @@
 "use client";
 import  { useState } from "react";
+import { UserAuth } from "@/app/context/authContext";
+import { ToastContainer } from 'react-toastify';
 
 // 
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const  { signup }  = UserAuth();
+
+
+  function isValidEmail(email) {
+    return /\S+@\S+\.\S+/.test(email);
+}
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    if (!isValidEmail(email)) {
+        setError("Email is invalid");
+    } else if (password.length < 6) {
+        setError("Password length should be greater than 6 characters");
+    } else {
+        try {
+            await signup(email, password);
+
+        } catch (error) {
+               
+                alert(error.message);
+              
+        }
+    }
+};
   return(
 
     <div class="Pt-20 grid place-items-center mx-2 my-20 sm:my-auto h-screen">
@@ -18,7 +44,7 @@ function Signup() {
           Signup
         </h2>
 
-        <form class="mt-10" >
+        <form class="mt-10" onSubmit={handleSignup} >
           
           <label for="email" class="block text-xs font-semibold text-gray-600 uppercase">E-mail</label>
           <input id="email"
@@ -41,7 +67,7 @@ function Signup() {
             border-b-2 border-gray-100
             focus:text-gray-500 focus:outline-none focus:border-gray-200"
             required />
-          
+           <label class="block mt-2 text-xs font-semibold text-red-600 uppercase"> {error} </label>
           <button type="submit"
             class="w-full py-3 mt-10 bg-purple-500 rounded-lg 
             font-medium text-white uppercase
@@ -53,9 +79,10 @@ function Signup() {
         </form>
 
         <div className="grid justify-items-center pt-4 ">
-                  <h4 className="flex flex-inline">Have an account <span className="text-purple-900 pl-4"><a href="/Authentication/login">Login</a></span></h4>
+                  <h4 className="flex flex-inline">Have an account <span className="text-purple-900 pl-4"><a href="/login">Login</a></span></h4>
                 </div>
       </div>
+      <ToastContainer />
     </div>
 
 
