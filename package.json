@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "firebase": "^10.4.0",
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
+    "firebase": "^10.6.0",
+    "next": "^14.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
     "react-toastify": "^9.1.3"
   },
   "devDependencies": {

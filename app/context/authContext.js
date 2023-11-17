@@ -61,7 +61,7 @@ export const AuthContextProvider = ({ children }) => {
       setUser(user2.user);
       showMsg("Created Successfully");
       await delay(3000);
-    //  window.location.href = "/home"
+     window.location.href = "/"
 
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -77,7 +77,7 @@ export const AuthContextProvider = ({ children }) => {
       setUser(user2.user);
       showMsg("Login Successful!");
       await delay(3000);
-     // window.location.href = "/home"
+     window.location.href = "/"
     } catch (error) {
       //auth/invalid-login-credentials
       showError("Incorrect email or password");
