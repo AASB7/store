@@ -83,7 +83,7 @@ export default function Home() {
                     )}
                 </div>
             </nav>
-            <h1>Student Store main page </h1>
+           
             <UserInfo />
         </>
     );
