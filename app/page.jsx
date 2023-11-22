@@ -43,6 +43,7 @@ export default function Home() {
 
     return (
         <>
+
             <nav className='flex justify-between items-center bg-[#59598f] text-white p-4'>
                 <h3 className='text-2xl'>Store</h3>
                 <div className='relative'>

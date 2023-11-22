@@ -7,7 +7,7 @@ import {
     onSnapshot,
 } from 'firebase/firestore';
 import { db } from "../firebase";
-
+import axios from "axios";
 function UserInfo() {
   //  const [user, loading, error] = useAuthState(auth);
    // const [userEmail, setUserEmail] = useState("");
@@ -18,19 +18,25 @@ function UserInfo() {
             setUserEmail(user.email);
         }
     }, [user]);*/
-
+    
+    const [filter, setFilter] = useState('');
     useEffect(() => {
         const q = query(collection(db, 'items'));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             let itemsArr = [];
-
+        
             querySnapshot.forEach((doc) => {
                 itemsArr.push({ ...doc.data(), id: doc.id });
             });
+            if (filter) {
+                itemsArr = itemsArr.filter((item) =>
+                  item.ProductName.toLowerCase().includes(filter.toLowerCase())
+                );
+              }
             setItems(itemsArr);
         });
-    }, []);
-
+    
+    }, [filter]);
 
     /*if (loading) {
         return <p>Loading...</p>;
@@ -47,14 +53,28 @@ function UserInfo() {
             ) : (
                 <p>You are not logged in.</p>
             )} */}
+                <h1 class="relative m-3 flex flex-wrap mx-auto justify-center bg-transparent	md:text-4xl ">Products List</h1>
+                <input
+                    type="text"
+                    placeholder="Filter by product name"
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                    className="w-10/12 p-2 ml-[100px] border rounded-md mb-5 "
+                />
+ 
+            <div class=" bg-gray-100 flex flex-col justify-center">
+                
 
-            <div class="min-h-screen bg-gray-100 flex flex-col justify-center">
-                <h1 class="relative m-3 flex flex-wrap mx-auto justify-center md:text-4xl">Products List</h1>
-                <div class="relative m-3 flex flex-wrap mx-auto justify-center ">
+
+                <div class=" bg-gray-100 relative m-3 flex flex-wrap mx-auto justify-center ">
+                      {items.length === 0 && filter && <h2>There's no item</h2>}
+
                     {items.map((item, id) => (
-                        <div key={id}>
-                            <div class="mx-auto mt-11 mr-8 w-[300px] transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg">
-                                <div>
+                        
+                        <div key={id} >
+                            
+                            <div class="mx-auto mt-11  mr-8 w-[300px] transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg">
+                                <div >
                                     <img class="h-48 w-full object-cover object-center" src={item.ProductImg} alt="Product Image" /></div>
                                 <div class="p-4">
                                     <h2 class="mb-2 text-lg font-medium dark:text-white text-gray-900">{item.ProductName}</h2>
@@ -64,15 +84,16 @@ function UserInfo() {
                                     <div class="flex flex-col-reverse mb-1 ml-auto group cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:opacity-70" fill="none" viewBox="0 0 24 24" stroke="gray">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                            
                                         </svg>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-                    ))}</div>
+                    ))}
+                    </div>
             </div>
+            
         </>
     );
 }
