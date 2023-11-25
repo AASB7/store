@@ -8,7 +8,9 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-
+body{
+  background-color: rgb(243 244 246);
+}
 /* Disable Dark Mode */
 @media (prefers-color-scheme: dark) {
   body {
