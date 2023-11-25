@@ -1,6 +1,6 @@
 "use client";
 import  { useState } from "react";
-import { UserAuth } from "@/app/context/authContext";
+import { UserAuth } from "../../context/authContext";
 import { ToastContainer } from 'react-toastify';
 
 // 
