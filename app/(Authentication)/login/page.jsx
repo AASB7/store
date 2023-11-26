@@ -1,5 +1,5 @@
 "use client";
-import { UserAuth } from "@/app/context/authContext";
+import { UserAuth } from "../../context/authContext";
 import  { useState } from "react";
 import { ToastContainer } from 'react-toastify';
 
