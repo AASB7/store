@@ -21,6 +21,10 @@ function Navbar() {
               link: "/items/addItem",
           },
           {
+            text: "My Items",
+            link: "/items/myItems",
+        },
+          {
               text: "Logout",
               onClick: handleLogout,
           },
