@@ -2,6 +2,8 @@
 import  { useState } from "react";
 import { UserAuth } from "../../context/authContext";
 import { ToastContainer } from 'react-toastify';
+import { auth } from "../../firebase";
+import { sendEmailVerification } from 'firebase/auth';
 
 // 
 
@@ -10,7 +12,6 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const  { signup }  = UserAuth();
-
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -24,6 +25,17 @@ function Signup() {
     } else {
         try {
             await signup(email, password);
+            sendEmailVerification(auth.currentUser)
+            .then(() => {
+              // Email verification sent!
+              console.log('Email verification sent!');
+             
+            })
+            .catch((error) => {
+              // Handle the error
+              console.error('Error sending email verification:', error.message);
+            });
+            
 
         } catch (error) {
                
