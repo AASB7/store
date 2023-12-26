@@ -21,6 +21,10 @@ function Navbar() {
               link: "/items/addItem",
           },
           {
+            text: "Edit profile",
+            link: "/edit",
+        },
+          {
               text: "Logout",
               onClick: handleLogout,
           },
